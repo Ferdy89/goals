@@ -44,7 +44,7 @@ App.prototype.addGoalHandler = function(that) {
     that.goalElement.value = "";
 
     document.getElementById('goals').innerHTML =
-      "<li>" + that.goals.join("</li><li>") + "</li>";
+      "<p>" + that.goals.join("</p><p>") + "</p>";
 
     if (that.goals.length >= 7) {
       that.renderGoalsTable();
