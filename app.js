@@ -5,6 +5,7 @@ function App() {
   this.goals = [];
 
   this.goalElement = document.getElementById('goal');
+  this.goalList    = document.getElementById('goals');
 
   // Assign the handler for the form submit
   document.getElementsByTagName('form')[0].onsubmit = this.addGoalHandler(this);
@@ -27,6 +28,18 @@ App.prototype.renderGoalsTable = function() {
 }
 
 /**
+ * Clears the goals and shows the initial state of the page
+ */
+App.prototype.clear = function() {
+  this.goals = [];
+
+  this.goalList.innerHTML = '';
+
+  document.getElementById('printable-table').className = 'hidden';
+  document.getElementById('goal-list').className = 'center';
+}
+
+/**
  * Metafunction that returns another function with access to a 'that' var which
  * points to the original object. Probably worth to FIXME
  *
@@ -43,8 +56,7 @@ App.prototype.addGoalHandler = function(that) {
     that.goals.push(that.goalElement.value);
     that.goalElement.value = "";
 
-    document.getElementById('goals').innerHTML =
-      "<p>" + that.goals.join("</p><p>") + "</p>";
+    that.goalList.innerHTML = "<p>" + that.goals.join("</p><p>") + "</p>";
 
     if (that.goals.length >= 7) {
       that.renderGoalsTable();
