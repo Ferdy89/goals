@@ -11,4 +11,5 @@ td {
 	border: black solid 1px;
 }
 
+.center { text-align: center; }
 .hidden { display: none; }
