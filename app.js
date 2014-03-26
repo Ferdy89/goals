@@ -2,7 +2,6 @@
  * Class to encapsulate the main functionality plus the DOM manipulation
  */
 function App() {
-  this.body = document.getElementsByTagName('body')[0];
   this.goals = [];
 
   this.goalElement = document.getElementById('goal');
@@ -12,13 +11,6 @@ function App() {
 
   // Autofocus to the text area when the page loads
   this.goalElement.autofocus = true;
-}
-
-/**
- * Pops up the print dialog on the browser
- */
-App.prototype.print = function() {
-  window.print();
 }
 
 /**
