@@ -11,4 +11,6 @@ td {
 	border: black solid 1px;
 }
 
+tr { height: 25%; }
+
 .center { text-align: center; }
