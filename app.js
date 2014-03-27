@@ -4,14 +4,16 @@
 function App() {
   this.goals = [];
 
-  this.goalElement = document.getElementById('goal');
-  this.goalList    = document.getElementById('goals');
+  this.goalElement  = $('#goal');
+  this.goalList     = $('#goals');
+  this.table        = $('#printable-table');
+  this.list         = $('#goal-list');
 
   // Assign the handler for the form submit
-  document.getElementsByTagName('form')[0].onsubmit = this.addGoalHandler(this);
+  $('form').submit(this.addGoalHandler(this));
 
   // Autofocus to the text area when the page loads
-  this.goalElement.autofocus = true;
+  this.goalElement.focus();
 }
 
 /**
@@ -21,9 +23,7 @@ App.prototype.renderGoalsTable = function() {
   var cell = null;
 
   for (var i = 0; i < 7; i++) {
-    cell = document.getElementById('goal-cell-' + i);
-
-    cell.innerHTML = this.goals[i];
+    $('#goal-cell-' + i).html(this.goals[i]);
   }
 }
 
@@ -33,10 +33,10 @@ App.prototype.renderGoalsTable = function() {
 App.prototype.clear = function() {
   this.goals = [];
 
-  this.goalList.innerHTML = '';
+  this.goalList.html('');
 
-  document.getElementById('printable-table').className = 'hidden';
-  document.getElementById('goal-list').className = 'center';
+  this.table.hide();
+  this.list.show();
 }
 
 /**
@@ -53,15 +53,15 @@ App.prototype.addGoalHandler = function(that) {
    * is pressed while focused on the text field
    */
   return function() {
-    that.goals.push(that.goalElement.value);
-    that.goalElement.value = "";
+    that.goals.push(that.goalElement.val());
+    that.goalElement.val('');
 
-    that.goalList.innerHTML = "<p>" + that.goals.join("</p><p>") + "</p>";
+    that.goalList.html("<p>" + that.goals.join("</p><p>") + "</p>");
 
     if (that.goals.length >= 7) {
       that.renderGoalsTable();
-      document.getElementById('printable-table').className = '';
-      document.getElementById('goal-list').className = 'hidden';
+      that.table.show();
+      that.list.hide();
     }
 
     return false;
