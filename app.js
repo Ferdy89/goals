@@ -4,10 +4,7 @@
 function App() {
   this.goals = [];
 
-  this.goalElement  = $('#goal');
-  this.goalList     = $('#goals');
-  this.table        = $('#printable-table');
-  this.list         = $('#goal-list');
+  this.goalList = $('#goals');
 
   // Assign the handler for the form submit
   $('form').submit(this.addGoalHandler(this));
@@ -15,9 +12,6 @@ function App() {
   $('#options-cell').hover(function(elem) {
     $(elem.target).find('.layer').toggle();
   });
-
-  // Autofocus to the text area when the page loads
-  this.goalElement.focus();
 }
 
 /**
@@ -39,8 +33,7 @@ App.prototype.clear = function() {
 
   this.goalList.html('');
 
-  this.table.hide();
-  this.list.show();
+  $('.page').toggle();
 
   $('#options-cell .layer').toggle();
 }
@@ -59,15 +52,17 @@ App.prototype.addGoalHandler = function(that) {
    * is pressed while focused on the text field
    */
   return function() {
-    that.goals.push(that.goalElement.val());
-    that.goalElement.val('');
+    var goal = $('#goal');
+
+    that.goals.push(goal.val());
+    goal.val('');
 
     that.goalList.html("<p>" + that.goals.join("</p><p>") + "</p>");
 
     if (that.goals.length >= 7) {
       that.renderGoalsTable();
-      that.table.show();
-      that.list.hide();
+
+      $('.page').toggle();
     }
 
     return false;
