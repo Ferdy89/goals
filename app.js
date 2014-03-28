@@ -12,17 +12,27 @@ function App() {
   $('#options-cell').hover(function(elem) {
     $(elem.target).find('.layer').toggle();
   });
+
+  var history = localStorage["goals"];
+  if (history) {
+    this.goals = history.split('::');
+    this.showGoalsTable();
+  }
 }
 
 /**
  * Simply renders the goals list and puts it into the body of the page
  */
-App.prototype.renderGoalsTable = function() {
+App.prototype.showGoalsTable = function() {
   var cell = null;
 
   for (var i = 0; i < 7; i++) {
     $('#goal-cell-' + i).html(this.goals[i]);
   }
+
+  localStorage["goals"] = this.goals.join('::');
+
+  $('.page').toggle();
 }
 
 /**
@@ -36,6 +46,8 @@ App.prototype.clear = function() {
   $('.page').toggle();
 
   $('#options-cell .layer').toggle();
+
+  localStorage["goals"] = undefined;
 }
 
 /**
@@ -60,9 +72,7 @@ App.prototype.addGoalHandler = function(that) {
     that.goalList.html("<p>" + that.goals.join("</p><p>") + "</p>");
 
     if (that.goals.length >= 7) {
-      that.renderGoalsTable();
-
-      $('.page').toggle();
+      that.showGoalsTable();
     }
 
     return false;
