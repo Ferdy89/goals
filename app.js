@@ -12,6 +12,10 @@ function App() {
   // Assign the handler for the form submit
   $('form').submit(this.addGoalHandler(this));
 
+  $('#options-cell').hover(function(elem) {
+    $(elem.target).find('.layer').toggle();
+  });
+
   // Autofocus to the text area when the page loads
   this.goalElement.focus();
 }
@@ -37,6 +41,8 @@ App.prototype.clear = function() {
 
   this.table.hide();
   this.list.show();
+
+  $('#options-cell .layer').toggle();
 }
 
 /**
